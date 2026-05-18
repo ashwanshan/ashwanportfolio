@@ -514,7 +514,7 @@ sendBtn.addEventListener("click", async () => {
 
   chatBox.innerHTML += `<div><strong>You:</strong> ${userMessage}</div>`;
 
-  const response = await fetch("http://localhost:5000/chat", {
+  const response = await fetch("https://ashwan-backend.onrender.com/chat", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ message: userMessage }),
