@@ -365,12 +365,29 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 /* ── 10. CONTACT FORM ───────────────────────── */
 const contactForm = document.getElementById('contactForm');
 const formSuccess = document.getElementById('formSuccess');
+const API_BASE_URL = window.API_BASE_URL || (window.location.protocol === 'file:' ? 'http://localhost:5000' : '');
+
+function showFormNotice(type, message) {
+  if (!formSuccess) return;
+
+  const icon = type === 'success' ? 'ri-checkbox-circle-fill' : 'ri-error-warning-fill';
+  formSuccess.innerHTML = `<i class="${icon}"></i> ${message}`;
+  formSuccess.style.borderColor = type === 'success' ? 'rgba(124,58,237,0.3)' : 'rgba(239,68,68,0.45)';
+  formSuccess.style.background = type === 'success' ? 'rgba(124,58,237,0.1)' : 'rgba(239,68,68,0.1)';
+  formSuccess.style.color = type === 'success' ? 'var(--accent)' : '#fca5a5';
+  formSuccess.classList.add('show');
+
+  clearTimeout(showFormNotice.timer);
+  showFormNotice.timer = setTimeout(() => formSuccess.classList.remove('show'), type === 'success' ? 5000 : 7000);
+}
 
 if (contactForm) {
-  contactForm.addEventListener('submit', (e) => {
+  contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const name    = document.getElementById('name').value.trim();
     const email   = document.getElementById('email').value.trim();
+    const subject = document.getElementById('subject').value.trim();
+    const service = document.getElementById('service').value.trim();
     const message = document.getElementById('message').value.trim();
 
     if (!name || !email || !message) {
@@ -388,13 +405,26 @@ if (contactForm) {
     submitBtn.disabled  = true;
     submitBtn.innerHTML = '<i class="ri-loader-4-line ri-spin"></i> Sending…';
 
-    setTimeout(() => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, subject, service, message }),
+      });
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok || !result.ok) {
+        throw new Error(result.error || 'Unable to send message right now.');
+      }
+
+      showFormNotice('success', "Message sent! I'll get back to you soon.");
+      contactForm.reset();
+    } catch (error) {
+      showFormNotice('error', error.message || 'Backend not reachable. Start the server and try again.');
+    } finally {
       submitBtn.disabled  = false;
       submitBtn.innerHTML = '<i class="ri-send-plane-fill"></i> Send Message';
-      formSuccess.classList.add('show');
-      contactForm.reset();
-      setTimeout(() => formSuccess.classList.remove('show'), 5000);
-    }, 1800);
+    }
   });
 
   contactForm.querySelectorAll('input, textarea, select').forEach(field => {
@@ -462,3 +492,35 @@ if (card3D && wrap3D) {
  ──────────────────────────────────────────── */
 
 console.log('%c⚡ Ashwan Portfolio — 3D Enhanced', 'color:#b07bff; font-size:14px; font-weight:bold;');
+
+const helpBtn = document.getElementById("helpBtn");
+const chatPanel = document.getElementById("chatPanel");
+const closeChat = document.getElementById("closeChat");
+const chatInput = document.getElementById("chat-input");
+const sendBtn = document.getElementById("send-btn");
+const chatBox = document.getElementById("chat-box");
+
+helpBtn.addEventListener("click", () => {
+  chatPanel.classList.toggle("show");
+});
+
+closeChat.addEventListener("click", () => {
+  chatPanel.classList.remove("show");
+});
+
+sendBtn.addEventListener("click", async () => {
+  const userMessage = chatInput.value.trim();
+  if (!userMessage) return;
+
+  chatBox.innerHTML += `<div><strong>You:</strong> ${userMessage}</div>`;
+
+  const response = await fetch("http://localhost:5000/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: userMessage }),
+  });
+
+  const data = await response.json();
+  chatBox.innerHTML += `<div><strong>AI:</strong> ${data.reply}</div>`;
+  chatInput.value = "";
+});

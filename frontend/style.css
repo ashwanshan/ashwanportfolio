@@ -1182,3 +1182,75 @@ input, textarea, select { font-family: inherit; }
   z-index: 9999;
   pointer-events: auto;
 }
+.ai-help-widget {
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+  z-index: 9999;
+}
+
+.ai-help-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  background: #7c3aed;
+  color: white;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.ai-chat-panel {
+  display: none;
+  position: absolute;
+  right: 0;
+  bottom: 75px;
+  width: 330px;
+  background: #10101f;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.ai-chat-panel.show {
+  display: block;
+}
+
+.ai-chat-header {
+  padding: 14px;
+  display: flex;
+  justify-content: space-between;
+  background: #7c3aed;
+  color: white;
+}
+
+.ai-chat-header button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.ai-chat-box {
+  height: 260px;
+  padding: 12px;
+  overflow-y: auto;
+  color: white;
+}
+
+.ai-chat-input {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+}
+
+.ai-chat-input input {
+  flex: 1;
+  padding: 10px;
+}
+
+.ai-chat-input button {
+  padding: 10px;
+  cursor: pointer;
+}

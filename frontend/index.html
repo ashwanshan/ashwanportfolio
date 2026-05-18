@@ -93,11 +93,10 @@
           <a href="#contact"  class="btn btn-ghost"><i class="ri-chat-3-fill"></i> Let's Talk</a>
         </div>
         <div class="hero-social reveal">
-          <a href="#" aria-label="GitHub"><i class="ri-github-fill"></i></a>
-          <a href="#" aria-label="LinkedIn"><i class="ri-linkedin-fill"></i></a>
-          <a href="#" aria-label="Twitter"><i class="ri-twitter-x-fill"></i></a>
-          <a href="#" aria-label="Instagram"><i class="ri-instagram-fill"></i></a>
-          <a href="#" aria-label="YouTube"><i class="ri-youtube-fill"></i></a>
+          <a href="https://github.com/ashwanshan" aria-label="GitHub" target="_blank"><i class="ri-github-fill"></i></a>
+            <a href="https://www.linkedin.com/in/ashwan-shan-2b9b5a324" aria-label="LinkedIn" target="_blank"><i class="ri-linkedin-fill"></i></a>
+            <a href="https://instagram.com/ash._.008" aria-label="Instagram" target="_blank"><i class="ri-instagram-fill"></i></a>
+            <a href="https://twitter.com/Ash_1356" aria-label="Twitter" target="_blank"><i class="ri-twitter-x-fill"></i></a>
         </div>
       </div>
 
@@ -169,7 +168,7 @@
         <div class="about-visual reveal">
           <div class="avatar-frame">
             <div class="avatar-placeholder">
-              <img src="ashwan.jpg" alt="Ashwan"
+              <img src="ashwan.png" alt="Ashwan"
                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
               />
               <div class="avatar-fallback-icon"><i class="ri-user-3-fill"></i></div>
@@ -516,6 +515,27 @@
       </div>
     </div>
   </section>
+  
+  <!-- AI HELP CHATBOT -->
+<div class="ai-help-widget">
+  <button id="helpBtn" class="ai-help-btn">
+    <i class="ri-chat-3-fill"></i>
+  </button>
+
+  <div id="chatPanel" class="ai-chat-panel">
+    <div class="ai-chat-header">
+      <strong>Ashwan AI</strong>
+      <button id="closeChat">×</button>
+    </div>
+
+    <div id="chat-box" class="ai-chat-box"></div>
+
+    <div class="ai-chat-input">
+      <input type="text" id="chat-input" placeholder="Ask anything..." />
+      <button id="send-btn">Send</button>
+    </div>
+  </div>
+</div>
 
   <!-- ═══════════════════════════════════════
        FOOTER
