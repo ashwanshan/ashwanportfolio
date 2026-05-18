@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ashwan | Portfolio</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+  <!-- Three.js for 3D background -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════
+       LOADING SCREEN
+  ═══════════════════════════════════════ -->
+  <div id="loader">
+    <div class="loader-inner">
+      <span class="loader-name">ASH<span>WAN</span></span>
+      <div class="loader-bar"><div class="loader-fill"></div></div>
+      <p class="loader-sub">Initialising 3D Universe…</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       CUSTOM CURSOR
+  ═══════════════════════════════════════ -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- ═══════════════════════════════════════
+       THREE.JS CANVAS (full-page 3D BG)
+  ═══════════════════════════════════════ -->
+  <canvas id="bg3d"></canvas>
+
+  <!-- ═══════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════ -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-logo">ASH<span>WAN</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home"     class="nav-link active">Home</a></li>
+        <li><a href="#about"    class="nav-link">About</a></li>
+        <li><a href="#skills"   class="nav-link">Skills</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#services" class="nav-link">Services</a></li>
+        <li><a href="#contact"  class="nav-link">Contact</a></li>
+      </ul>
+      <a href="#contact" class="nav-cta">Hire Me</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <ul>
+        <li><a href="#home"     class="mob-link">Home</a></li>
+        <li><a href="#about"    class="mob-link">About</a></li>
+        <li><a href="#skills"   class="mob-link">Skills</a></li>
+        <li><a href="#projects" class="mob-link">Projects</a></li>
+        <li><a href="#services" class="mob-link">Services</a></li>
+        <li><a href="#contact"  class="mob-link">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════
+       SECTION 1 — HERO (Two-column layout)
+  ═══════════════════════════════════════ -->
+  <section id="home" class="hero">
+    <div class="hero-content-wrap">
+
+      <!-- LEFT: Text content -->
+      <div class="hero-content">
+        <div class="hero-badge reveal">
+          <span class="badge-dot"></span>
+          Available for Freelance
+        </div>
+        <p class="hero-greeting reveal">Hello, I'm</p>
+        <h1 class="hero-name reveal">Ashwan</h1>
+        <div class="hero-typing reveal">
+          <span class="typing-prefix">I'm a&nbsp;</span>
+          <span class="typing-text" id="typingText"></span>
+          <span class="typing-cursor">|</span>
+        </div>
+        <p class="hero-desc reveal">
+          Crafting digital experiences at the intersection of creativity and technology.
+          Based in India — available worldwide.
+        </p>
+        <div class="hero-buttons reveal">
+          <a href="#projects" class="btn btn-primary"><i class="ri-eye-fill"></i> View My Work</a>
+          <a href="#contact"  class="btn btn-ghost"><i class="ri-chat-3-fill"></i> Let's Talk</a>
+        </div>
+        <div class="hero-social reveal">
+          <a href="#" aria-label="GitHub"><i class="ri-github-fill"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="ri-linkedin-fill"></i></a>
+          <a href="#" aria-label="Twitter"><i class="ri-twitter-x-fill"></i></a>
+          <a href="#" aria-label="Instagram"><i class="ri-instagram-fill"></i></a>
+          <a href="#" aria-label="YouTube"><i class="ri-youtube-fill"></i></a>
+        </div>
+      </div>
+
+      <!-- RIGHT: Profile Image 3D Card -->
+      <div class="hero-profile reveal">
+        <div class="profile-3d-wrapper" id="profile3DWrapper">
+          <div class="profile-3d-card" id="profile3DCard">
+            <div class="profile-img-frame">
+              <!-- ★ Replace src with your actual image path -->
+              <img
+                src="ashwan.png"
+                alt="Ashwan"
+                class="profile-img"
+                id="profileImg"
+                onerror="this.style.display='none'; document.getElementById('profileFallback').style.display='flex';"
+              />
+              <!-- Fallback avatar shown if image not found -->
+              <div class="profile-fallback" id="profileFallback">
+                <i class="ri-user-3-fill"></i>
+                <span>Add your photo<br>as ashwan.png</span>
+              </div>
+              <div class="profile-glow-ring"></div>
+              <div class="profile-scan-line"></div>
+            </div>
+
+            <!-- Floating stat chips -->
+            <div class="profile-chip chip-tl reveal">
+              <i class="ri-verified-badge-fill"></i>
+              <span>Pro Designer</span>
+            </div>
+            <div class="profile-chip chip-tr reveal">
+              <i class="ri-fire-fill"></i>
+              <span>20+ Projects</span>
+            </div>
+            <div class="profile-chip chip-bl reveal">
+              <i class="ri-star-fill"></i>
+              <span>5★ Rating</span>
+            </div>
+            <div class="profile-chip chip-br reveal">
+              <i class="ri-map-pin-2-fill"></i>
+              <span>India 🇮🇳</span>
+            </div>
+          </div>
+
+          <!-- Decorative rings -->
+          <div class="profile-ring ring-1"></div>
+          <div class="profile-ring ring-2"></div>
+          <div class="profile-ring ring-3"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       SECTION 2 — ABOUT
+  ═══════════════════════════════════════ -->
+  <section id="about" class="about section">
+    <div class="container">
+      <div class="section-tag reveal">// about me</div>
+      <h2 class="section-title reveal">Who Am I?</h2>
+
+      <div class="about-grid">
+        <div class="about-visual reveal">
+          <div class="avatar-frame">
+            <div class="avatar-placeholder">
+              <img src="ashwan.jpg" alt="Ashwan"
+                   onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+              />
+              <div class="avatar-fallback-icon"><i class="ri-user-3-fill"></i></div>
+            </div>
+            <div class="float-badge badge-1"><i class="ri-video-fill"></i> Video Editor</div>
+            <div class="float-badge badge-2"><i class="ri-code-s-slash-fill"></i> Developer</div>
+            <div class="float-badge badge-3"><i class="ri-palette-fill"></i> Designer</div>
+          </div>
+        </div>
+
+        <div class="about-text">
+          <p class="reveal">
+            Hi! I'm <strong>Ashwan</strong> — a passionate Student & Freelancer from India who loves building things that live on the internet and look stunning on screen.
+          </p>
+          <p class="reveal">
+            I blend <strong>creative design</strong> with <strong>technical skill</strong> to deliver projects that don't just work — they <em>wow</em>. Whether it's a slick web app, a cinematic video edit, or a bold visual identity, I bring full focus to every pixel.
+          </p>
+          <p class="reveal">
+            When I'm not coding or editing, I'm exploring the latest in design trends, gaming, and pushing creative boundaries.
+          </p>
+
+          <div class="about-stats reveal">
+            <div class="stat-item">
+              <span class="stat-num" data-target="20">0</span><span>+</span>
+              <p>Projects Done</p>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num" data-target="15">0</span><span>+</span>
+              <p>Happy Clients</p>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num" data-target="3">0</span><span>+</span>
+              <p>Years Exp.</p>
+            </div>
+          </div>
+
+          <a href="#contact" class="btn btn-primary reveal" style="margin-top:2rem; display:inline-flex;">Get In Touch</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       SECTION 3 — SKILLS
+  ═══════════════════════════════════════ -->
+  <section id="skills" class="skills section">
+    <div class="container">
+      <div class="section-tag reveal">// my toolkit</div>
+      <h2 class="section-title reveal">Skills & Tools</h2>
+      <p class="section-sub reveal">Technologies and tools I use to bring ideas to life.</p>
+
+      <div class="skills-grid">
+        <div class="skill-card glass reveal">
+          <div class="skill-icon"><i class="ri-film-fill"></i></div>
+          <h3>Video Editing</h3>
+          <p>Creating cinematic edits, reels, and YouTube content with smooth cuts and color grading.</p>
+          <div class="skill-tags">
+            <span>Premiere Pro</span><span>After Effects</span><span>DaVinci Resolve</span><span>CapCut</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
+        </div>
+
+        <div class="skill-card glass reveal">
+          <div class="skill-icon"><i class="ri-code-box-fill"></i></div>
+          <h3>Web Development</h3>
+          <p>Building fast, responsive, and visually stunning websites from scratch.</p>
+          <div class="skill-tags">
+            <span>HTML</span><span>CSS</span><span>JavaScript</span><span>React</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
+        </div>
+
+        <div class="skill-card glass reveal">
+          <div class="skill-icon"><i class="ri-brush-2-fill"></i></div>
+          <h3>Graphic Design</h3>
+          <p>Designing logos, thumbnails, social media creatives, and brand identities.</p>
+          <div class="skill-tags">
+            <span>Photoshop</span><span>Illustrator</span><span>Canva</span><span>Figma</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+        </div>
+      </div>
+
+      <div class="tech-strip reveal">
+        <span><i class="ri-html5-fill"></i> HTML5</span>
+        <span><i class="ri-css3-fill"></i> CSS3</span>
+        <span><i class="ri-javascript-fill"></i> JS</span>
+        <span><i class="ri-reactjs-fill"></i> React</span>
+        <span><i class="ri-git-branch-fill"></i> Git</span>
+        <span><i class="ri-figma-fill"></i> Figma</span>
+        <span><i class="ri-film-fill"></i> Premiere</span>
+        <span><i class="ri-palette-fill"></i> Photoshop</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       SECTION 4 — PROJECTS
+  ═══════════════════════════════════════ -->
+  <section id="projects" class="projects section">
+    <div class="container">
+      <div class="section-tag reveal">// my work</div>
+      <h2 class="section-title reveal">Featured Projects</h2>
+      <p class="section-sub reveal">A curated selection of projects I've built and shipped.</p>
+
+      <div class="projects-grid">
+        <div class="project-card glass reveal">
+          <div class="project-img" style="--proj-hue: 260deg;">
+            <div class="proj-img-overlay"><i class="ri-code-s-slash-fill"></i></div>
+            <div class="project-num">01</div>
+          </div>
+          <div class="project-body">
+            <div class="project-type">Web Development</div>
+            <h3>E-Commerce UI</h3>
+            <p>A modern, fully responsive e-commerce storefront with dark theme, cart animations, and smooth product filtering.</p>
+            <div class="project-stack"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+            <div class="project-links">
+              <a href="#" class="btn btn-small btn-primary"><i class="ri-external-link-fill"></i> Live Demo</a>
+              <a href="#" class="btn btn-small btn-ghost"><i class="ri-github-fill"></i> GitHub</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card glass reveal">
+          <div class="project-img" style="--proj-hue: 200deg;">
+            <div class="proj-img-overlay"><i class="ri-film-fill"></i></div>
+            <div class="project-num">02</div>
+          </div>
+          <div class="project-body">
+            <div class="project-type">Video Editing</div>
+            <h3>Brand Promo Reel</h3>
+            <p>A 60-second cinematic promo reel for a local fashion brand — shot, edited and color-graded entirely by me.</p>
+            <div class="project-stack"><span>Premiere Pro</span><span>After Effects</span></div>
+            <div class="project-links">
+              <a href="#" class="btn btn-small btn-primary"><i class="ri-play-fill"></i> Watch</a>
+              <a href="#" class="btn btn-small btn-ghost"><i class="ri-information-fill"></i> Details</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card glass reveal">
+          <div class="project-img" style="--proj-hue: 300deg;">
+            <div class="proj-img-overlay"><i class="ri-palette-fill"></i></div>
+            <div class="project-num">03</div>
+          </div>
+          <div class="project-body">
+            <div class="project-type">Graphic Design</div>
+            <h3>Brand Identity Kit</h3>
+            <p>Complete branding package including logo, color palette, typography and social media templates for a tech startup.</p>
+            <div class="project-stack"><span>Illustrator</span><span>Photoshop</span><span>Figma</span></div>
+            <div class="project-links">
+              <a href="#" class="btn btn-small btn-primary"><i class="ri-external-link-fill"></i> View Kit</a>
+              <a href="#" class="btn btn-small btn-ghost"><i class="ri-dribbble-fill"></i> Dribbble</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card glass reveal">
+          <div class="project-img" style="--proj-hue: 170deg;">
+            <div class="proj-img-overlay"><i class="ri-dashboard-3-fill"></i></div>
+            <div class="project-num">04</div>
+          </div>
+          <div class="project-body">
+            <div class="project-type">Web Development</div>
+            <h3>Analytics Dashboard</h3>
+            <p>A real-time analytics dashboard with animated charts, dark UI and responsive grid layout built with vanilla JS.</p>
+            <div class="project-stack"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+            <div class="project-links">
+              <a href="#" class="btn btn-small btn-primary"><i class="ri-external-link-fill"></i> Live Demo</a>
+              <a href="#" class="btn btn-small btn-ghost"><i class="ri-github-fill"></i> GitHub</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card glass reveal">
+          <div class="project-img" style="--proj-hue: 30deg;">
+            <div class="proj-img-overlay"><i class="ri-smartphone-fill"></i></div>
+            <div class="project-num">05</div>
+          </div>
+          <div class="project-body">
+            <div class="project-type">UI Design</div>
+            <h3>Mobile App Design</h3>
+            <p>High-fidelity Figma prototype for a fitness tracking app with custom iconography and micro-interaction specs.</p>
+            <div class="project-stack"><span>Figma</span><span>Illustrator</span></div>
+            <div class="project-links">
+              <a href="#" class="btn btn-small btn-primary"><i class="ri-figma-fill"></i> Prototype</a>
+              <a href="#" class="btn btn-small btn-ghost"><i class="ri-information-fill"></i> Details</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card glass reveal">
+          <div class="project-img" style="--proj-hue: 340deg;">
+            <div class="proj-img-overlay"><i class="ri-youtube-fill"></i></div>
+            <div class="project-num">06</div>
+          </div>
+          <div class="project-body">
+            <div class="project-type">Video Editing</div>
+            <h3>YouTube Channel Pack</h3>
+            <p>Full channel art pack: animated intros, outro templates, lower thirds and thumbnail templates for a gaming channel.</p>
+            <div class="project-stack"><span>After Effects</span><span>Photoshop</span></div>
+            <div class="project-links">
+              <a href="#" class="btn btn-small btn-primary"><i class="ri-youtube-fill"></i> Channel</a>
+              <a href="#" class="btn btn-small btn-ghost"><i class="ri-information-fill"></i> Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       SECTION 5 — SERVICES
+  ═══════════════════════════════════════ -->
+  <section id="services" class="services section">
+    <div class="container">
+      <div class="section-tag reveal">// what I offer</div>
+      <h2 class="section-title reveal">Services</h2>
+      <p class="section-sub reveal">End-to-end solutions tailored to your creative and technical needs.</p>
+
+      <div class="services-grid">
+        <div class="service-card glass reveal">
+          <div class="service-icon"><i class="ri-video-fill"></i></div>
+          <h3>Video Editing</h3>
+          <p>From short-form reels to full-length YouTube videos — cinematic cuts, color grading, motion graphics & captions.</p>
+          <ul>
+            <li><i class="ri-check-fill"></i> YouTube / Instagram Reels</li>
+            <li><i class="ri-check-fill"></i> Color Grading & LUTs</li>
+            <li><i class="ri-check-fill"></i> Motion Graphics</li>
+            <li><i class="ri-check-fill"></i> Subtitles & Captions</li>
+          </ul>
+          <div class="service-price">Starting at <strong>₹999</strong></div>
+        </div>
+
+        <div class="service-card glass reveal featured-service">
+          <div class="featured-badge">Most Popular</div>
+          <div class="service-icon"><i class="ri-code-s-slash-fill"></i></div>
+          <h3>Web Development</h3>
+          <p>Pixel-perfect, fast, and responsive websites built from scratch — with animations and clean code.</p>
+          <ul>
+            <li><i class="ri-check-fill"></i> Responsive Design</li>
+            <li><i class="ri-check-fill"></i> Landing Pages</li>
+            <li><i class="ri-check-fill"></i> Portfolio Sites</li>
+            <li><i class="ri-check-fill"></i> React Web Apps</li>
+          </ul>
+          <div class="service-price">Starting at <strong>₹1,999</strong></div>
+        </div>
+
+        <div class="service-card glass reveal">
+          <div class="service-icon"><i class="ri-brush-2-fill"></i></div>
+          <h3>Graphic Design</h3>
+          <p>Bold, memorable visual identities — logos, thumbnails, social media creatives and full brand kits.</p>
+          <ul>
+            <li><i class="ri-check-fill"></i> Logo & Brand Identity</li>
+            <li><i class="ri-check-fill"></i> Social Media Posts</li>
+            <li><i class="ri-check-fill"></i> YouTube Thumbnails</li>
+            <li><i class="ri-check-fill"></i> Poster & Banner Design</li>
+          </ul>
+          <div class="service-price">Starting at <strong>₹499</strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       SECTION 6 — CONTACT
+  ═══════════════════════════════════════ -->
+  <section id="contact" class="contact section">
+    <div class="container">
+      <div class="section-tag reveal">// get in touch</div>
+      <h2 class="section-title reveal">Let's Work Together</h2>
+      <p class="section-sub reveal">Have a project in mind? I'd love to hear about it. Send me a message and let's make something great.</p>
+
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <div class="contact-item">
+            <div class="c-icon"><i class="ri-mail-fill"></i></div>
+            <div>
+              <span>Email</span>
+              <a href="mailto:ashwanishan22@gmail.com">ashwanishan22@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="c-icon"><i class="ri-phone-fill"></i></div>
+            <div>
+              <span>Phone</span>
+              <a href="tel:+919103817150">+91 91038 17150</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="c-icon"><i class="ri-map-pin-fill"></i></div>
+            <div>
+              <span>Location</span>
+              <p>India — Remote Worldwide</p>
+            </div>
+          </div>
+          <div class="contact-social">
+            <a href="https://github.com/ashwanshan" aria-label="GitHub" target="_blank"><i class="ri-github-fill"></i></a>
+            <a href="https://www.linkedin.com/in/ashwan-shan-2b9b5a324" aria-label="LinkedIn" target="_blank"><i class="ri-linkedin-fill"></i></a>
+            <a href="https://instagram.com/ash._.008" aria-label="Instagram" target="_blank"><i class="ri-instagram-fill"></i></a>
+            <a href="https://twitter.com/Ash_1356" aria-label="Twitter" target="_blank"><i class="ri-twitter-x-fill"></i></a>
+            
+          </div>
+        </div>
+
+        <div class="contact-form glass reveal">
+          <form id="contactForm" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" placeholder="John Doe" required/>
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="john@example.com" required/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" placeholder="Project Inquiry"/>
+            </div>
+            <div class="form-group">
+              <label for="service">Service Needed</label>
+              <select id="service">
+                <option value="">Select a service…</option>
+                <option>Video Editing</option>
+                <option>Web Development</option>
+                <option>Graphic Design</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" rows="5" placeholder="Tell me about your project…" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">
+              <i class="ri-send-plane-fill"></i> Send Message
+            </button>
+            <div class="form-success" id="formSuccess">
+              <i class="ri-checkbox-circle-fill"></i> Message sent! I'll get back to you soon.
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <a href="#home" class="nav-logo">ASH<span>WAN</span></a>
+        <p>© 2025 Ashwan. Crafted with <i class="ri-heart-fill" style="color:#b07bff"></i> in India.</p>
+        <a href="#home" class="back-top" aria-label="Back to top"><i class="ri-arrow-up-line"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
